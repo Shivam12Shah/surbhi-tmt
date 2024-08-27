@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Update expense page</h1>
+    <form action="/expense/update/<%= updatedets._id%>" method="post">
+        <input type="text" name="title" placeholder="Title" value="<%= updatedets.title%>">
+        <input type="number" name="amount" placeholder="Amount" value="<%= updatedets.amount%>">
+        <input type="text" name="category" placeholder="Category" value="<%= updatedets.category%>">
+        <input type="text" name="remark" placeholder="Remark" value="<%= updatedets.remark%>">
+        <input type="text" name="paymentmode" placeholder="Payment Mode" value="<%= updatedets.paymentmode%>">
+        <button>Edit Expense</button>
+    </form>
+</body>
+</html>
