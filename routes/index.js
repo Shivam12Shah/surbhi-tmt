@@ -5,7 +5,7 @@ const expenseModel = require("../models/expenseSchmea")
 router.get("/", async (req,res)=>{
     try {
         const allexpenses = await expenseModel.find()
-        res.render("inex", {allexpenses})
+        res.render("index", {allexpenses})
     } catch (error) {
         next(error)
     }
