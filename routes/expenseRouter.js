@@ -1,12 +1,13 @@
 const express = require("express")
 const router = express.Router()
 const expenseModel = require("../models/expenseSchmea")
+const { isLoggedIn } = require("../middleware/isloggedin")
 
 router.get("/", (req,res)=>{
     res.send("exprees roouter")
 })
 
-router.get("/create", (req, res)=>{
+router.get("/create",isLoggedIn, (req, res)=>{
     res.render("create")
 })
 
@@ -20,7 +21,7 @@ router.post("/create", async (req, res)=>{
     }
 })
 
-router.get("/delete/:id",async (req, res)=>{
+router.get("/delete/:id",isLoggedIn ,async (req, res)=>{
     try {
         await expenseModel.findByIdAndDelete(req.params.id) 
         // await expenseModel.save()

@@ -30,6 +30,7 @@ app.use(passport.session());
 passport.serializeUser(userModel.serializeUser());
 passport.deserializeUser(userModel.deserializeUser());
 
+
 app.use("/", indexRouter);
 app.use("/expense", exprenseRouter);
 app.use("/user",userRouter )
