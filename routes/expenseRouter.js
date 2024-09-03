@@ -8,13 +8,14 @@ router.get("/", (req,res)=>{
 })
 
 router.get("/create",isLoggedIn, (req, res)=>{
-    res.render("create")
+    res.render("create", {message:req.flash('create')})
 })
 
 router.post("/create", async (req, res)=>{
     try {
         const newExpense = await new expenseModel(req.body)
         await newExpense.save()
+        req.flash("create", "exprense is created ")
         res.redirect("/expense/create")
     } catch (error) {
         

@@ -5,6 +5,7 @@ const app = express();
 const expresssession = require("express-session");
 const passport = require("passport");
 const userModel = require("./models/userSchmea")
+var flash = require('connect-flash');
 
 require("./config/db");
 
@@ -30,7 +31,7 @@ app.use(passport.session());
 passport.serializeUser(userModel.serializeUser());
 passport.deserializeUser(userModel.deserializeUser());
 
-
+app.use(flash())
 app.use("/", indexRouter);
 app.use("/expense", exprenseRouter);
 app.use("/user",userRouter )

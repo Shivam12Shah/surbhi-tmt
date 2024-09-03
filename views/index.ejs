@@ -4,9 +4,11 @@
 <%allexpenses.forEach((elm, index )=>{%>
    <h3> expense number <%=index+1%> :-  <%=elm.title%> || <a href="/expense/delete/<%=elm._id%>">delete Expense</a> || <a href="/expense/details/<%=elm._id%>">Detials</a></h3>
 <%})%>
+<%=flash%> <a href="/">X</a>
 
-
-<a href="/user/logout">Logout</a>
+<h1><a href="/user/logout">Logout</a></h1>
+<h1><a href="/user/updateuser">Update user</a></h1>
+<h1><a href="/user/resetpassword">Reset password</a></h1>
 
 
 

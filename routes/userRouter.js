@@ -5,6 +5,7 @@ const userModel = require("../models/userSchmea");
 const localStrategy = require("passport-local");
 
 const passport = require("passport");
+const { isLoggedIn } = require("../middleware/isloggedin");
 passport.use(new localStrategy(userModel.authenticate()));
 
 router.get("/register", async (req, res) => {
@@ -40,5 +41,34 @@ router.get('/logout', function(req, res, next) {
       res.redirect('/user/login');
     });
   });
+
+  router.get("/updateuser",isLoggedIn,(req, res, next)=>{
+    res.render("updateuser", {user:req.user})
+  })
+
+router.post("/updateuser/:id", isLoggedIn, async(req, res, next)=>{
+  try {
+    const updatedUser = await userModel.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    await updatedUser.save();
+    req.flash('success', 'User Updated Successfully')
+    res.redirect('/')
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get("/resetpassword", isLoggedIn, (req, res, next)=>{
+  res.render("resetpassword")
+})
+
+router.post("/resetpassword",isLoggedIn, async(req, res, next)=>{
+  try {
+    await req.user.changePassword(req.body.oldpassword, req.body.newpassword)
+    await req.user.save()
+    res.redirect("/")
+  } catch (error) {
+    next(error)
+  }
+})
 
 module.exports = router;
