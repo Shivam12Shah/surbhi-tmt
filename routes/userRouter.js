@@ -6,6 +6,7 @@ const localStrategy = require("passport-local");
 
 const passport = require("passport");
 const { isLoggedIn } = require("../middleware/isloggedin");
+const upload = require("../utils/multer");
 passport.use(new localStrategy(userModel.authenticate()));
 
 router.get("/register", async (req, res) => {
@@ -65,6 +66,17 @@ router.post("/resetpassword",isLoggedIn, async(req, res, next)=>{
   try {
     await req.user.changePassword(req.body.oldpassword, req.body.newpassword)
     await req.user.save()
+    res.redirect("/")
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/profile',isLoggedIn, upload.single('avatar'), async function (req, res, next) {
+  try {
+    const user = req.user
+    user.avatar = req.file.filename
+    await user.save()
     res.redirect("/")
   } catch (error) {
     next(error)

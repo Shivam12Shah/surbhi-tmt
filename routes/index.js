@@ -7,7 +7,8 @@ router.get("/", isLoggedIn ,async (req,res)=>{
     try {
         const allexpenses = await expenseModel.find()
         const flash = req.flash('success')
-        res.render("index", {allexpenses, flash})
+
+        res.render("index", {allexpenses, flash, user:req.user})
     } catch (error) {
         next(error)
     }
